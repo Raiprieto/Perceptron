@@ -1,0 +1,89 @@
+## **Clases y Funcionalidades**
+
+### **1. Clase Csvtodf (`data_loader.py`)**
+Carga un archivo CSV y lo convierte en un array de NumPy. Está diseñada para procesar datos tabulares con encabezados.
+
+**Métodos:**
+- `csv_to_array`: Lee el archivo CSV, valida su existencia, y retorna los datos como un array NumPy.
+
+### **2. Clase Modelo (`modelo.py`)**
+Resuelve un modelo de optimización lineal dado un array de parámetros. Utiliza la biblioteca `scipy.optimize` para resolver el problema.
+
+**Métodos:**
+- `__init__(self, array)`: Inicializa el modelo con los parámetros dados.
+- `solution`: Resuelve el modelo lineal con las restricciones y la función objetivo.
+
+### **3. Clase ModeloVisual (`modelo_visual.py`)**
+Hereda de `Modelo` y agrega funcionalidades de visualización mediante `matplotlib`.
+
+**Métodos:**
+- `plot_solution`: Genera un gráfico con las restricciones, la región factible y la solución óptima.
+- `print_initial_data`: Imprime los datos iniciales del modelo (coeficientes y restricciones).
+
+---
+
+## **Requisitos Previos**
+
+### **Instalación de Dependencias**
+Asegúrate de tener instalados los siguientes paquetes:
+- `numpy`
+- `scipy`
+- `matplotlib`
+
+Instala las dependencias ejecutando:
+pip install -r requirements.txt
+
+---
+## **Archivo CSV**
+El archivo csv debe ser del siguiente formato:
+
+T_A1,T_B1,T_M1,T_A2,T_B2,T_M2,P_A,P_B
+1.5,2.0,8.0,1.0,1.5,10.0,100,80
+
+## **Ejecución del programa**
+
+Ejecuta el programa desde la línea de comandos pasando la ruta del archivo CSV como argumento
+
+Ejemplo:
+python main.py optimization_problem_data.csv
+
+Salida esperada:
+
+Resultados del Modelo:
+Valores óptimos de las variables: x_A = 2.00, x_B = 3.00
+Valor óptimo de la función objetivo: Z = 400.00
+
+Generando el gráfico...
+Gráfico generado exitosamente.
+
+## **Ejecución de tests**
+
+Ejecutar Todos los Tests
+Para ejecutar todos los tests, desde la raíz del proyecto, ejecuta:
+python -m unittest discover -s tests
+
+Ejecución Individual
+Para ejecutar un archivo de prueba específico:
+python -m unittest tests.test_data_loader.py
+
+## **Pruebas unitarias**
+
+Pruebas Unitarias
+test_data_loader.py:
+Verifica que Csvtodf carga correctamente los datos desde un archivo CSV.
+Prueba errores como rutas inexistentes o datos mal formateados.
+
+test_modelo.py:
+Valida la correcta inicialización del modelo.
+Comprueba que la solución óptima sea factible.
+
+test_modelo_visual.py:
+Verifica que ModeloVisual pueda generar gráficos sin errores.
+Prueba la impresión de los datos iniciales.
+
+## **Funcionamiento del modelo**
+
+El modelo resuelve una optimización lineal de dos variables y dos ecuaciones de restricciones del tipo:
+Ax = b
+
+El modelo funciona con la libreria scipy, y se resuelve usando simplex.
